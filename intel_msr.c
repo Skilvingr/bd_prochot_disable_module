@@ -16,25 +16,25 @@ static int __init intel_msr_init(void) {
 
   currentValue = (initialValue & 0xFFFFE);
   
-  printk(KERN_INFO "Writing value 0x%04llx on 0x1FC msr...", currentValue);
+  printk(KERN_INFO "intel_msr: Current value is: 0x%04llx. Writing new value 0x%04llx on 0x1fc msr...", initialValue, currentValue);
 
   wrmsrl(0x1FC, (initialValue & 0xFFFFE));
 
   rdmsrl_safe(0x1FC, &currentValue);
   
-  printk(KERN_INFO "Done. New value is: 0x%04llx\n", currentValue);
+  printk(KERN_INFO "intel_msr: Done. New value is: 0x%04llx\n", currentValue);
 
   return 0;
 }
 
 static void __exit intel_msr_exit(void) {
-  printk(KERN_INFO "Restoring old 0x1FC msr value...");
+  printk(KERN_INFO "intel_msr: Restoring old 0x1FC msr value...");
   
   wrmsrl(0x1FC, initialValue);
   
   rdmsrl_safe(0x1FC, &currentValue);
   
-  printk(KERN_INFO "Done. New value is: 0x%04llx\n", currentValue);
+  printk(KERN_INFO "intel_msr: Done. New value is: 0x%04llx\n", currentValue);
 }
 
 module_init(intel_msr_init);
