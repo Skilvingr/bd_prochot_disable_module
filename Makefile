@@ -25,5 +25,3 @@ uninstall:
 	rm -rf $(IPATH)
 	rm -rf $(DKMS_MOD_PATH)
 
-test:	insmod
-	dmesg
