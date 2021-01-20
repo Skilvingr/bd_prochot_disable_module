@@ -1,15 +1,18 @@
 # bd_prochot_disable_module
 A simple module for the Linux kernel which disables the BD_PROCHOT functionality
 
-# System Requirements (for Arch)
+# Install System Requirements (for Arch)
   ## For the module (required)
-  Run `pacman -S base-devel linux-headers` in order to install dependencies
+    pacman -S base-devel linux-headers
   
   ## For dkms (optional)
-  Run `pacman -S dkms`
+    pacman -S dkms
 
 # Build and test
-  Run `make`, then `make test`.
+    make
+    make test
 
 # Use dkms
-  Run `make install`, then `dkms autoinstall`. The module should work fine, even after a kernel update.
+    make install
+    dkms autoinstall
+The module should work fine, even after a kernel update.
