@@ -18,4 +18,5 @@ This will build and load the module in the system. Running `dmesg`, its messages
 ## Use dkms
     make install
     dkms autoinstall
+    depmod
 Now the module can be loaded with `modprobe intel_msr` and it should work fine, even after a kernel update (tested on Arch).
