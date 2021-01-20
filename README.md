@@ -7,4 +7,7 @@ Run `pacman -S base-devel linux-headers` in order to install dependencies
 # Build and test
 Run `make`, then `insmod intel_msr.ko`. Running `dmesg` you should see if the module worked.
 
+# Use dkms
+In order to use dkms, search for the instructions for the distro you are using
+
 WIP
