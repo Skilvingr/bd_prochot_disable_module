@@ -9,9 +9,8 @@ A simple module for the Linux kernel which disables the BD_PROCHOT functionality
     pacman -S dkms
 
 # Build and test
-    make
     make insmod
-This will load the module in the system. Running `dmesg` its messages should be visible.
+This will build and load the module in the system. Running `dmesg`, its messages should be visible.
 
 # Use dkms
     make install
