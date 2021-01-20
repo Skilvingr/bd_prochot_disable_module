@@ -1,17 +1,29 @@
-obj-m += intel_msr.o
+MOD = intel_msr
+MOD_VER = 1.0
+KPATH := /lib/modules/$(shell uname -r)/build
+MOD_SOURCE_PATH := /usr/src/intel_msr-1.0/
+DKMS_MOD_PATH := /var/lib/dkms/intel_msr
+PWD := $(shell pwd)
+obj-m = $(MOD).o
 
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	$(MAKE) -C $(KPATH) M=$(PWD) modules
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	$(MAKE) -C $(KPATH) M=$(PWD) clean
 
-test:
-# We put a — in front of the rmmod command to tell make to ignore
-# an error in case the module isn't loaded.
-	-sudo rmmod intel_msr
-# Clear the kernel log without echo
-	sudo dmesg -C
-# Insert the module
-	sudo insmod intel_msr.ko
-# Display the kernel log
+insmod: all
+	sudo rmmod $(MOD).ko; true
+	sudo insmod $(MOD).ko
+
+install:
+	mkdir -p $(MOD_SOURCE_PATH)
+	cp -R * $(MOD_SOURCE_PATH)
+	mkdir -p $(DKMS_MOD_PATH)/$(MOD_VER)
+	ln -s $(MOD_SOURCE_PATH) $(DKMS_MOD_PATH)/$(MOD_VER)/source
+
+uninstall:
+	rm -rf $(IPATH)
+	rm -rf $(DKMS_MOD_PATH)
+
+test:	insmod
 	dmesg
