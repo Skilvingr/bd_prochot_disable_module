@@ -14,11 +14,11 @@ u64 currentValue = 0;
 static int __init intel_msr_init(void) {  
   rdmsrl_safe(0x1FC, &initialValue);
 
-  currentValue = (initialValue & 0xFFFFE);
+  currentValue = (initialValue & 0xfffffe);
   
   printk(KERN_INFO "intel_msr: Current value is: 0x%04llx. Writing new value 0x%04llx on 0x1fc msr...", initialValue, currentValue);
 
-  wrmsrl(0x1FC, (initialValue & 0xFFFFE));
+  wrmsrl(0x1FC, (initialValue & 0xfffffe));
 
   rdmsrl_safe(0x1FC, &currentValue);
   

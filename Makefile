@@ -22,6 +22,7 @@ install:
 	ln -s $(MOD_SOURCE_PATH) $(DKMS_MOD_PATH)/$(MOD_VER)/source
 
 uninstall:
+	dkms uninstall intel_msr/1.0
 	rm -rf $(IPATH)
 	rm -rf $(DKMS_MOD_PATH)
 
