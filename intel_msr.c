@@ -10,17 +10,22 @@ MODULE_VERSION("0.01");
 
 u64 initialValue = 0;
 u64 currentValue = 0;
+int retValue = 0;
 
 static int __init intel_msr_init(void) {  
-  rdmsrl_safe(0x1FC, &initialValue);
+  if((retValue = rdmsrl_safe(0x1fc, &initialValue)) != 0){
+    printk(KERN_ERR "intel_msr: Error while reading 0x1fc register. rdmsrl_safe() returned: %d", retValue);
+    return -1;
+  }
 
+  
   currentValue = (initialValue & 0xfffffe);
   
   printk(KERN_INFO "intel_msr: Current value is: 0x%04llx. Writing new value 0x%04llx on 0x1fc msr...", initialValue, currentValue);
 
-  wrmsrl(0x1FC, (initialValue & 0xfffffe));
+  wrmsrl(0x1fc, (initialValue & 0xfffffe));
 
-  rdmsrl_safe(0x1FC, &currentValue);
+  rdmsrl_safe(0x1fc, &currentValue);
   
   printk(KERN_INFO "intel_msr: Done. New value is: 0x%04llx\n", currentValue);
 
@@ -28,11 +33,11 @@ static int __init intel_msr_init(void) {
 }
 
 static void __exit intel_msr_exit(void) {
-  printk(KERN_INFO "intel_msr: Restoring old 0x1FC msr value...");
+  printk(KERN_INFO "intel_msr: Restoring old 0x1fc msr value...");
   
-  wrmsrl(0x1FC, initialValue);
+  wrmsrl(0x1fc, initialValue);
   
-  rdmsrl_safe(0x1FC, &currentValue);
+  rdmsrl_safe(0x1fc, &currentValue);
   
   printk(KERN_INFO "intel_msr: Done. New value is: 0x%04llx\n", currentValue);
 }
