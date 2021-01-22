@@ -1,5 +1,5 @@
 # bd_prochot_disable_module
-A simple module for the Linux kernel which disables the BD_PROCHOT functionality
+A simple module for the Linux kernel which turns off Intel's BD_PROCHOT.
 
 <b>The commands below must be executed as root</b>
 <br/>
@@ -13,7 +13,7 @@ A simple module for the Linux kernel which disables the BD_PROCHOT functionality
 
 ## Build and test
     make insmod
-This will build and load the module in the system. Running `dmesg`, its messages should be visible.
+This will build and load the module. Running `dmesg`, its messages should be visible.
 
 ## Use dkms
     make install
