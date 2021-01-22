@@ -23,6 +23,6 @@ install:
 
 uninstall:
 	dkms uninstall intel_msr/1.0
-	rm -rf $(IPATH)
+	rm -rf $(MOD_SOURCE_PATH)
 	rm -rf $(DKMS_MOD_PATH)
 
